@@ -14,7 +14,7 @@ public class TestcontainersConfiguration {
     @ServiceConnection
     public PostgreSQLContainer<?> postgresContainer() {
         return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
-                .withDatabaseName("bankAccountDb")
+                .withDatabaseName("bank_account_db")
                 .withUsername("test_user")
                 .withPassword("test_password");
     }

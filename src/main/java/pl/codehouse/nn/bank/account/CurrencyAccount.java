@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("currency_accounts")
 record CurrencyAccount(
         @Id
-        CurrencyAccountPK id,
+        CurrencyAccountPk id,
         BigDecimal amount,
         boolean isMainAccount
 ) {

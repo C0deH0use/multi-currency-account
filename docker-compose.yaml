@@ -1,0 +1,16 @@
+name: multi-currency-account-services
+
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: bank_account_db

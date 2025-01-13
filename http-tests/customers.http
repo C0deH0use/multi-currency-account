@@ -1,0 +1,12 @@
+### POST Create new Customer
+POST http://localhost:8080/customers
+Content-Type: application/json
+
+{
+  "firstName": "Peter",
+  "lastName": "Pan",
+  "mainAccountBalance": "199.99",
+  "mainAccountCurrency": "PLN",
+  "additionalCurrencies": ["USD"]
+}
+

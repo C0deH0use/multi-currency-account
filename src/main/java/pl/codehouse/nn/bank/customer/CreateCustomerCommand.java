@@ -29,7 +29,7 @@ class CreateCustomerCommand implements Command<CreateCustomerRequest, CustomerDt
      * Constructs a new CreateCustomerCommand with the necessary dependencies.
      *
      * @param customerRepository Repository for customer data operations.
-     * @param accountService Service for managing currency accounts.
+     * @param accountService     Service for managing currency accounts.
      */
     CreateCustomerCommand(CustomerRepository customerRepository, AccountService accountService) {
         this.customerRepository = customerRepository;
@@ -47,7 +47,7 @@ class CreateCustomerCommand implements Command<CreateCustomerRequest, CustomerDt
      *
      * @param request The {@link CreateCustomerRequest} containing the details for creating a new customer account.
      * @return A {@link Mono} that emits an {@link ExecutionResult} containing the created {@link CustomerDto}.
-     *         The result will be a success if the customer is created successfully, or a failure with an error message otherwise.
+     *      The result will be a success if the customer is created successfully, or a failure with an error message otherwise.
      */
     @Override
     public Mono<ExecutionResult<CustomerDto>> execute(CreateCustomerRequest request) {
@@ -82,7 +82,7 @@ class CreateCustomerCommand implements Command<CreateCustomerRequest, CustomerDt
     }
 
     private static List<Currency> createListOfAdditionalCurrencies(CreateCustomerRequest request) {
-        if(CollectionUtils.isEmpty(request.additionalCurrencies())) {
+        if (CollectionUtils.isEmpty(request.additionalCurrencies())) {
             return switch (request.mainAccountCurrency()) {
                 case PLN:
                     yield List.of(Currency.USD, Currency.EUR);
