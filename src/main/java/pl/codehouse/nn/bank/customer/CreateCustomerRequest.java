@@ -2,6 +2,7 @@ package pl.codehouse.nn.bank.customer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,8 +18,8 @@ import pl.codehouse.nn.bank.account.Currency;
 public record CreateCustomerRequest(
         @JsonProperty("firstName") @NotBlank String firstName,
         @JsonProperty("lastName") @NotBlank String lastName,
-        @JsonProperty("mainAccountBalance") @NotNull @Min(0) BigDecimal mainAccountBalance,
+        @JsonProperty("mainAccountBalance") @NotNull @DecimalMin("0.00") BigDecimal mainAccountBalance,
         @JsonProperty("mainAccountCurrency") @Nullable Currency mainAccountCurrency,
-        @JsonProperty("additionalCurrencies") List<Currency> additionalCurrencies
+        @JsonProperty("additionalCurrencies") @NotNull List<Currency> additionalCurrencies
 ) {
 }

@@ -76,6 +76,12 @@ testing {
                 implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 
                 implementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+
+				implementation("io.rest-assured:rest-assured:5.4.0")
+				implementation("io.rest-assured:json-path:5.4.0")
+				implementation("io.rest-assured:json-schema-validator:5.4.0")
+				implementation("io.rest-assured:spring-web-test-client:5.4.0")
+				implementation("org.hamcrest:hamcrest:3.0")
             }
         }
 
@@ -104,11 +110,6 @@ testing {
                 implementation("org.testcontainers:kafka")
                 implementation("org.testcontainers:postgresql")
                 implementation("org.testcontainers:r2dbc")
-
-                implementation("io.rest-assured:rest-assured:5.4.0")
-                implementation("io.rest-assured:json-path:5.4.0")
-                implementation("io.rest-assured:json-schema-validator:5.4.0")
-                implementation("io.rest-assured:spring-web-test-client:5.4.0")
             }
         }
     }
