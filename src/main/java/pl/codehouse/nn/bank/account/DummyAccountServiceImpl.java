@@ -8,7 +8,12 @@ import reactor.core.publisher.Mono;
 @Service
 class DummyAccountServiceImpl implements AccountService {
     @Override
+    public Mono<List<CurrencyAccountDto>> findAccountsFor(long customerId) {
+        return Mono.just(new ArrayList<>());
+    }
+
+    @Override
     public Mono<List<CurrencyAccountDto>> createNewAccounts(NewAccountsRequest request) {
-        return Mono.just(new ArrayList<CurrencyAccountDto>());
+        return Mono.just(new ArrayList<>());
     }
 }

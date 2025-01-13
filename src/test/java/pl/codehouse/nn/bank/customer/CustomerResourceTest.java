@@ -40,9 +40,84 @@ private final static Logger log = LoggerFactory.getLogger(CustomerResourceTest.c
     @MockitoBean
     private CreateCustomerCommand createCustomerCommand;
 
+    @MockitoBean
+    private CustomerApi customerApi;
+
     @BeforeEach
     void setUp() {
         webTestClient(webClient);
+    }
+
+    @Test
+    @DisplayName("should return 200 with customer details when valid customer ID is provided")
+    void should_Return200WithCustomerDetails_When_ValidCustomerIdProvided() {
+        // given
+        long customerId = 100L;
+        List<CurrencyAccountDto> accountBalance = List.of(
+                new CurrencyAccountDto(Currency.PLN, new BigDecimal("199.99"), true),
+                new CurrencyAccountDto(Currency.USD, BigDecimal.ZERO, false)
+        );
+        CustomerDto customerDto = new CustomerDto(customerId, "Peter", "Pan", accountBalance);
+
+        given(customerApi.fetchCustomer(customerId)).willReturn(Mono.just(customerDto));
+
+        // when & then
+        given()
+                .contentType(APPLICATION_JSON_VALUE)
+
+                .when()
+                .get("/customers/{customerId}", String.valueOf(customerId))
+
+                .then()
+                .log().ifValidationFails()
+                .status(HttpStatus.OK)
+                .body("accountId", equalTo(100))
+                .body("firstName", equalTo("Peter"))
+                .body("lastName", equalTo("Pan"))
+                .body("accountBalance", hasSize(2))
+                .body("accountBalance[0].amount", equalTo(199.99f))
+                .body("accountBalance[0].currency", equalTo("PLN"))
+                .body("accountBalance[0].isMainAccount", equalTo(true))
+                .body("accountBalance[1].amount", equalTo(0))
+                .body("accountBalance[1].currency", equalTo("USD"))
+                .body("accountBalance[1].isMainAccount", equalTo(false));
+    }
+
+    @Test
+    @DisplayName("should return 404 Not Found when customer ID does not exist")
+    void should_Return404NotFound_When_CustomerIdDoesNotExist() {
+        // given
+        long customerId = 999;
+        given(customerApi.fetchCustomer(customerId)).willReturn(Mono.empty());
+
+        // when & then
+        given()
+                .contentType(APPLICATION_JSON_VALUE)
+
+                .when()
+                .get("/customers/{customerId}", String.valueOf(customerId))
+
+                .then()
+                .log().ifValidationFails()
+                .status(HttpStatus.NOT_FOUND)
+                .body("title", equalTo("Not Found"))
+                .body("status", equalTo(404))
+                .body("detail", equalTo("Customer with id 999 not found."));
+    }
+
+    @Test
+    @DisplayName("should return 400 Bad Request when customer ID is invalid")
+    void should_Return400BadRequest_When_CustomerIdIsInvalid() {
+        // when & then
+        given()
+                .contentType(APPLICATION_JSON_VALUE)
+
+                .when()
+                .get("/customers/invalid")
+
+                .then()
+                .log().ifValidationFails()
+                .status(HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -209,4 +284,6 @@ private final static Logger log = LoggerFactory.getLogger(CustomerResourceTest.c
                 .body("detail", equalTo("Failed to read HTTP message"))
         ;
     }
+
+
 }
