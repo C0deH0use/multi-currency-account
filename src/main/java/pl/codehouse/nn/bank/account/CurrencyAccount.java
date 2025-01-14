@@ -2,11 +2,13 @@ package pl.codehouse.nn.bank.account;
 
 import java.math.BigDecimal;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("currency_accounts")
 record CurrencyAccount(
         @Id
+        @Embedded.Empty
         CurrencyAccountPk id,
         BigDecimal amount,
         boolean isMainAccount

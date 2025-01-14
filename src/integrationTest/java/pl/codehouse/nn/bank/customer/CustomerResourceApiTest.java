@@ -75,16 +75,11 @@ class CustomerResourceApiTest {
                 .body("accountId", notNullValue(Integer.class))
                 .body("firstName", equalTo("Peter"))
                 .body("lastName", equalTo("Pan"))
-                .body("accountBalance", empty())
-
-// FIXME: Part of the task to create Bank Accounts #6 [Currency Account] - Create new Currency Account for a given customer.
-//                .body("accountBalance", hasSize(2))
-//                .body("accountBalance[0].amount", equalTo(199.99f))
-//                .body("accountBalance[0].currency", equalTo("PLN"))
-//                .body("accountBalance[0].isMainAccount", equalTo(true))
-//                .body("accountBalance[1].amount", equalTo(0))
-//                .body("accountBalance[1].currency", equalTo("USD"))
-//                .body("accountBalance[1].isMainAccount", equalTo(false))
+                .body("accountBalance", hasSize(2))
+                .body("accountBalance.find { it.currency == 'PLN' }.amount", equalTo(199.99f))
+                .body("accountBalance.find { it.currency == 'PLN' }.isMainAccount", equalTo(true))
+                .body("accountBalance.find { it.currency == 'USD' }.amount", equalTo(0))
+                .body("accountBalance.find { it.currency == 'USD' }.isMainAccount", equalTo(false))
 
         ;
     }

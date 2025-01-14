@@ -11,4 +11,8 @@ public record CurrencyAccountDto(
         BigDecimal amount,
         boolean isMainAccount
 ) {
+
+    CurrencyAccountDto toDto() {
+        return new CurrencyAccountDto(currency, amount, isMainAccount);
+    }
 }
