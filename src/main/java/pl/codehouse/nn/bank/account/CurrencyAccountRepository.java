@@ -1,9 +1,12 @@
 package pl.codehouse.nn.bank.account;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-@Repository
-interface CurrencyAccountRepository extends ReactiveCrudRepository<CurrencyAccount, Integer> {
+interface CurrencyAccountRepository {
 
+    Mono<List<CurrencyAccount>> findById(CurrencyAccountPk id);
+
+    Flux<CurrencyAccount> saveAll(List<CurrencyAccount> accounts);
 }
