@@ -7,6 +7,41 @@ Content-Type: application/json
   "lastName": "Pan",
   "mainAccountBalance": "199.99",
   "mainAccountCurrency": "PLN",
-  "additionalCurrencies": ["USD"]
+  "additionalCurrencies": ["USD", "EUR"]
 }
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 201, "Response status is not 200");
+    });
+    client.global.set("customerId", response.body.accountId);
+
+%}
+
+### Get Customer by ID
+GET http://localhost:8080/customers/{{customerId}}
+Content-Type: application/json
+
+> {%
+    client.test("Get Customer request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+POST http://localhost:8080/customers/{{customerId}}/exchange
+Content-Type: application/json
+
+{
+  "amount": 25.0,
+  "fromCurrency": "PLN",
+  "toCurrency": "EUR"
+}
+
+> {%
+    client.test("Exchange request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 
