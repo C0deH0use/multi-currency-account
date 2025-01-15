@@ -1,5 +1,6 @@
 package pl.codehouse.nn.bank.account;
 
+import java.math.BigDecimal;
 import java.util.List;
 import reactor.core.publisher.Mono;
 
@@ -31,4 +32,5 @@ public interface AccountService {
      */
     Mono<List<CurrencyAccountDto>> createNewAccounts(NewAccountsRequest request);
 
+    Mono<CurrencyAccountDto> updateAmountFor(long customerId, Currency currency, BigDecimal amount);
 }

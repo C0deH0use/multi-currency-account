@@ -5,6 +5,9 @@ services:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      spring_flyway_url: jdbc:postgresql://db:5432/bank_account_db
+      spring_r2dbc_url: jdbc:postgresql://db:5432/bank_account_db
 
   db:
     image: postgres:latest

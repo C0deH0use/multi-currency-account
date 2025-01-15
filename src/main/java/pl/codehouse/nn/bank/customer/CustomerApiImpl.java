@@ -23,4 +23,9 @@ record CustomerApiImpl(
         return createCustomerCommand.execute(request)
                 .map(ExecutionResult::handle);
     }
+
+    @Override
+    public Mono<CustomerDto> exchange(ExchangeRequest request) {
+        return null;
+    }
 }

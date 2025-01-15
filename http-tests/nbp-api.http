@@ -1,0 +1,5 @@
+### GET USD exchange rates
+GET https://api.nbp.pl/api/exchangerates/rates/A/USD/
+
+### GET EUR exchange rates
+GET https://api.nbp.pl/api/exchangerates/rates/A/EUR/

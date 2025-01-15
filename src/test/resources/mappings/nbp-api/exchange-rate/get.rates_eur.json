@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/exchangerates/rates/A/EUR/",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      },
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "table": "A",
+      "currency": "euro",
+      "code": "EUR",
+      "rates": [
+        {
+          "no": "009/A/NBP/2025",
+          "effectiveDate": "2025-01-14",
+          "mid": 4.2611
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
