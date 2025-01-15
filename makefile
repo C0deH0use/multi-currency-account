@@ -4,7 +4,7 @@ build:
 	docker compose build api
 
 run: build
-	docker compose up api
+	docker compose up
 
 run-db:
 	docker compose up db --force-recreate --renew-anon-volumes

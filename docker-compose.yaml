@@ -6,8 +6,14 @@ services:
     ports:
       - "8080:8080"
     environment:
-      spring_flyway_url: jdbc:postgresql://db:5432/bank_account_db
-      spring_r2dbc_url: jdbc:postgresql://db:5432/bank_account_db
+      SPRING_R2DBC_URL: r2dbc:postgresql://db:5432/bank_account_db
+      SPRING_R2DBC_USERNAME: test_user
+      SPRING_R2DBC_PASSWORD: test_password
+      SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/bank_account_db
+      SPRING_FLYWAY_USER: test_user
+      SPRING_FLYWAY_PASSWORD: test_password
+    depends_on:
+      - db
 
   db:
     image: postgres:latest
@@ -17,3 +23,8 @@ services:
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: test_password
       POSTGRES_DB: bank_account_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
