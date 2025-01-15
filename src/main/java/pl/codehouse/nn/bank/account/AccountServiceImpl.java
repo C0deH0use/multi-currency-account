@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -17,7 +16,9 @@ record AccountServiceImpl(
 
     @Override
     public Mono<List<CurrencyAccountDto>> findAccountsFor(long customerId) {
-        return Mono.just(new ArrayList<>());
+        return repository.findByCustomerId(customerId)
+                .mapNotNull(CurrencyAccount::toDto)
+                .collectList();
     }
 
     @Override
@@ -33,5 +34,12 @@ record AccountServiceImpl(
         return repository.saveAll(accounts)
                 .mapNotNull(CurrencyAccount::toDto)
                 .collectList();
+    }
+
+    @Override
+    public Mono<CurrencyAccountDto> updateAmountFor(long customerId, Currency currency, BigDecimal amount) {
+        log.info("Updating amount for customer account: {} {}. Amount update value = {}", customerId, currency, amount);
+        return repository.findById(new CurrencyAccountPk(customerId, currency))
+                .flatMap(currencyAccount -> repository.updateAmountBy(currencyAccount.id(), currencyAccount.amount().add(amount)));
     }
 }

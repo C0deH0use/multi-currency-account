@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/exchangerates/rates/A/USD/",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      },
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "table": "A",
+      "currency": "dolar amerykański",
+      "code": "USD",
+      "rates": [
+        {
+          "no": "075/A/NBP/2023",
+          "effectiveDate": "2023-04-18",
+          "mid": 3.9488
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

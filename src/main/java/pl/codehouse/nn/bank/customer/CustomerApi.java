@@ -31,4 +31,5 @@ public interface CustomerApi {
      */
     Mono<CustomerDto> createAccount(@Valid CreateCustomerRequest request);
 
+    Mono<CustomerDto> exchange(@Valid ExchangeRequest request);
 }

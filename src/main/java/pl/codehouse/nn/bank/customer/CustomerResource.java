@@ -21,10 +21,12 @@ import reactor.core.publisher.Mono;
 class CustomerResource {
     private final CustomerApi customerApi;
     private final CreateCustomerCommand createCustomerCommand;
+    private final CurrencyExchangeCommand currencyExchangeCommand;
 
-    CustomerResource(CustomerApi customerApi, CreateCustomerCommand createCustomerCommand) {
+    CustomerResource(CustomerApi customerApi, CreateCustomerCommand createCustomerCommand, CurrencyExchangeCommand currencyExchangeCommand) {
         this.customerApi = customerApi;
         this.createCustomerCommand = createCustomerCommand;
+        this.currencyExchangeCommand = currencyExchangeCommand;
     }
 
     @GetMapping("/{customerId}")
@@ -37,6 +39,12 @@ class CustomerResource {
     @ResponseStatus(HttpStatus.CREATED)
     Mono<CustomerDto> createCustomer(@RequestBody @Valid CreateCustomerRequest request) {
         return createCustomerCommand.execute(request)
+                .map(ExecutionResult::handle);
+    }
+
+    @PostMapping("{customerId}/exchange")
+    Mono<CustomerDto> createCustomer(@PathVariable @Valid @NotNull Long customerId, @RequestBody @Valid ExchangeRequest request) {
+        return currencyExchangeCommand.execute(new CustomerAwareContext<>(customerId, request))
                 .map(ExecutionResult::handle);
     }
 }

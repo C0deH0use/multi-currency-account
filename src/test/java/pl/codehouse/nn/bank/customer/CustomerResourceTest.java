@@ -41,6 +41,9 @@ private final static Logger log = LoggerFactory.getLogger(CustomerResourceTest.c
     private CreateCustomerCommand createCustomerCommand;
 
     @MockitoBean
+    private CurrencyExchangeCommand exchangeCommand;
+
+    @MockitoBean
     private CustomerApi customerApi;
 
     @BeforeEach

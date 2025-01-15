@@ -110,7 +110,9 @@ testing {
                 implementation("org.testcontainers:kafka")
                 implementation("org.testcontainers:postgresql")
                 implementation("org.testcontainers:r2dbc")
-            }
+
+				implementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.2.0")
+			}
         }
     }
 }
